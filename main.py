@@ -8,6 +8,7 @@ from PIL import Image
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 filename = "cover.png"
+env_var_api_key = "API-KEY"
 
 # load api keys or generate it if not exists
 try:
@@ -15,7 +16,12 @@ try:
 except (Exception) as e:
     print("no secrets found. Generating new api key.", e)
     import uuid
-    key = str(uuid.uuid4())
+    import os
+    key = ""
+    if env_var_api_key in os.environ:
+        key = os.environ[env_var_api_key]
+    if key == "":
+        key = str(uuid.uuid4())
     api_keys = [key]
     with open("keys.py", "w") as text_file:
         text_file.write("api_keys = ['{key}']".format(key=key))
