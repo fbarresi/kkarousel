@@ -10,6 +10,8 @@ app = Flask(__name__)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 filename = "/home/kkarousel/cover.png"
 env_var_api_key = "API-KEY"
+width = 600
+height = 800
 
 # Load or create API key
 try:
@@ -50,7 +52,8 @@ def upload_image():
         return jsonify({"error": "invalid file extension"}), 403
 
     content = file.read()
-    image = Image.open(io.BytesIO(content)).convert('L')
+    size = (width, height)
+    image = Image.open(io.BytesIO(content)).resize(size).convert('L')
     image.save(filename)
 
     return jsonify(True)

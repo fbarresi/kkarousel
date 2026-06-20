@@ -9,6 +9,8 @@ from PIL import Image
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 filename = "cover.png"
 env_var_api_key = "API-KEY"
+width = 600
+height = 800
 
 # load api keys or generate it if not exists
 try:
@@ -51,7 +53,8 @@ async def upload_image(file: UploadFile):
          raise HTTPException(status_code=403, detail="invalid file extension")
     content = await file.read()
     rawBytes = io.BytesIO(content)
-    image = Image.open(rawBytes).convert('L')
+    size = (width, height)
+    image = Image.open(rawBytes).resize(size).convert('L')
     image.save(filename)
     return True
 
