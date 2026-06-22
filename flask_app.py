@@ -8,7 +8,7 @@ from PIL import Image
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-filename = "/home/kkarousel/cover.png"
+filename = "cover.png"
 env_var_api_key = "API-KEY"
 width = 600
 height = 800
@@ -22,7 +22,7 @@ except Exception as e:
     if key == "":
         key = str(uuid.uuid4())
     api_keys = [key]
-    with open("/home/kkarousel/keys.py", "w") as f:
+    with open("keys.py", "w") as f:
         f.write(f"api_keys = ['{key}']")
 
 # Helpers

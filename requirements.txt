@@ -1,3 +1,6 @@
+requests
+python-multipart
 fastapi[standard]
 Pillow
 Flask
+uvicorn[standard]
